@@ -8,12 +8,24 @@ res.sendfile('views/login.html');
 }
 
 module.exports = function(passport){
+router.get('/cruiselist', function(req, res){
+    res.sendfile('views/cruise_list.html');
+});
 
+router.get('/tourlist', function(req, res){
+    res.sendfile('views/tour_list.html');
+});
+
+router.get('/tourinput', function(req, res){
+    res.sendfile('views/tour_input.html');
+});
+router.get('/cruiseinput', function(req, res){
+    res.sendfile('views/cruise_input.html');
+});
 router.get('/login', function(req, res){
     res.sendfile('views/login.html');
 });
 
-/* GET login page. */
 router.get('/getPortages', function(req, res){
     var mysql      = require('mysql');
     var connection = mysql.createConnection({
@@ -35,7 +47,6 @@ router.get('/getPortages', function(req, res){
     connection.end();
 });
 
-/* GET login page. */
 router.get('/getTours', function(req, res){
     var mysql      = require('mysql');
     var connection = mysql.createConnection({
@@ -79,7 +90,7 @@ router.post('/postPortage', function(req, res){
     
     connection.end();
 });
-/* GET login page. */
+
 router.post('/postTours', function(req, res){
     var mysql      = require('mysql');
     var connection = mysql.createConnection({
