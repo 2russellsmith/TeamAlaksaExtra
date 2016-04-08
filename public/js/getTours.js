@@ -9,6 +9,61 @@ $(document).ready(function(){
     $('#jsonb').click(function(){
        getJSON(); 
     });
+    $.ajax({url: "/getShips", success: function(result){
+         for(var ship in result) {
+             var x = document.getElementById("shipSelect");
+             var option = document.createElement("option");
+             option.text = result[ship].name;
+             x.add(option);
+          }
+     }});
+     $('select').on('change', function() {
+         var selected = this.value ; // or $(this).val()
+        $("#tourTable tr").remove(); 
+        $.ajax({url: "/gettours", success: function(result){
+         for(var tour in result) {
+             var table = document.getElementById("tourTable");
+             if(result[tour].boat == selected){
+                  var row = table.insertRow(-1); 
+                  // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+                  var tourName = row.insertCell(0);
+                  var description = row.insertCell(1);
+     	          var startTime = row.insertCell(2);
+                  var endTime = row.insertCell(3);
+     
+     
+                  
+                  // Add some text to the new cells:
+                  tourName.innerHTML = result[tour].name;
+                  description.innerHTML = result[tour].description;
+     	          startTime.innerHTML = result[tour].start_time.split('T')[1].split('Z')[0];
+                  endTime.innerHTML = result[tour].end_time.split('T')[1].split('Z')[0];
+                 
+               }}
+     }});
+
+     });
+     $.ajax({url: "/gettours", success: function(result){
+         for(var tour in result) {
+             var table = document.getElementById("tourTable");
+             var row = table.insertRow(-1);
+
+             // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+             var tourName = row.insertCell(0);
+             var description = row.insertCell(1);
+	     var startTime = row.insertCell(2);
+             var endTime = row.insertCell(3);
+
+
+             
+             // Add some text to the new cells:
+             tourName.innerHTML = result[tour].name;
+             description.innerHTML = result[tour].description;
+	     startTime.innerHTML = result[tour].start_time.split('T')[1].split('Z')[0];
+             endTime.innerHTML = result[tour].end_time.split('T')[1].split('Z')[0];
+          }
+     }});
+
 
 });
 

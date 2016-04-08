@@ -26,6 +26,28 @@ router.get('/login', function(req, res){
     res.sendfile('views/login.html');
 });
 
+router.get('/getShips', function(req, res){
+    var mysql      = require('mysql');
+    var connection = mysql.createConnection({
+      host     : 'localhost',
+      user     : 'root',
+      password : 'root',
+      database : 'cs360'
+    });
+    
+    connection.connect();
+    
+    connection.query('SELECT * FROM CruiseShip', function(err, rows, fields) {
+      if (err) throw err;
+    
+      console.log('The solution is: ', rows);
+      res.send(rows);
+    });
+    
+    connection.end();
+});
+
+
 router.get('/getPortages', function(req, res){
     var mysql      = require('mysql');
     var connection = mysql.createConnection({
@@ -58,7 +80,7 @@ router.get('/getTours', function(req, res){
     
     connection.connect();
     
-    connection.query('SELECT * FROM Tours', function(err, rows, fields) {
+    connection.query('Select CruiseShip.name as boat, Tours.name, Tours.description, Tours.start_time, Tours.end_time from Tours Join Portage on Tours.portage_id = Portage.id JOIN CruiseShip ON Portage.cruise_ship_id = CruiseShip.id', function(err, rows, fields) {
       if (err) throw err;
     
       console.log('The solution is: ', rows);
