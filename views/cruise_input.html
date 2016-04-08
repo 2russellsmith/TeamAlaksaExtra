@@ -36,7 +36,6 @@ $.ajax({url: "/getShips", success: function(result){
 	<div id="navbar" class="col-md-3">
 		<nav>
 			<ul>
-				<li><a>Home</a></li>
 				<li><a href="cruiselist">Cruise List</a></li>
 				<li><a href="tourlist">Tour List</a></li>
 				<li><a href="cruiseinput">Cruise Input</a></li>
@@ -46,13 +45,22 @@ $.ajax({url: "/getShips", success: function(result){
 	</div>
 	<div class="col-md-9 content">
 		<h3>Add a Cruise</h3>
-		<form>
-			<label class="col-md-12">Name of Ship<select id="shipSelect">
-			<option>Select Ship</option>
-		</select></label>
-			<label class="col-md-12">Port Time<input type="time" /></label>
-			<label class="col-md-12">Departure Time<input type="time" /></label>
-			<label class="col-md-12">Dock Number<input type="number" /></label>
+		<form action="postPortage" method="post">
+			<div class="row">
+			<label for="shipSelect" class="col-md-3">Name of Ship</label>
+                        <select id="shipSelect" name="cruise_ship_id">
+			       <option>Select Ship</option>
+		        </select>
+                        </div>
+			<div class="row">
+                        <label class="col-md-3" for="input2" >Dock Time</label><input id="input2" name="dock_time" type="datetime" />
+			</div>
+			<div class="row">
+			<label class="col-md-3" for="input3">Departure Time</label><input id="input3" name="departure_time" type="datetime" />
+			</div>
+			<div class="row">
+			<label class="col-md-3" for="input4">Dock Number</label><input id="input4" name="dock_number" type="number" />
+			</div>
 			<input type="Submit" value="Submit" />
 		</form>
 	</div>

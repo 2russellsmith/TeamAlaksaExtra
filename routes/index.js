@@ -104,13 +104,15 @@ router.post('/postPortage', function(req, res){
     connection.connect();
     
     connection.query('INSERT INTO Portage(cruise_ship_id, dock_time, departure_time, dock_number)  VALUES(' 
-                    + req.body['cruise_ship_id'] + ', ' + req.body['dock_time'] + ', ' + req.body['departure_time'] + ', ' + req.body['dock_number'] + ');', function(err, rows, fields) {
+                    + req.body['cruise_ship_id'] + ', "' + req.body['dock_time'] + '", "' + req.body['departure_time'] + '", ' + req.body['dock_number'] + ');', function(err, rows, fields) {
       if (err) throw err;
-      res.send(rows[0]);
+      res.writeHead(302, {
+         'Location': '/cruiselist'
+      });
+      res.end(); 
     });
 
-    
-    connection.end();
+        connection.end();
 });
 
 router.post('/postTours', function(req, res){
@@ -125,7 +127,7 @@ router.post('/postTours', function(req, res){
     connection.connect();
     
     connection.query('INSERT INTO Tours(company_id, start_time,end_time, capacity, portage_id)  VALUES(' 
-                    + req.body['company_id'] + ', ' + req.body['start_time'] + ', ' + req.body['end_time'] + ', ' + req.body['capacity'] + ', ' + req.body['portage_id'] + ');', function(err, rows, fields) {
+                    + req.body['company_id'] + ', "' + req.body['start_time'] + '", "' + req.body['end_time'] + '", ' + req.body['capacity'] + ', ' + req.body['portage_id'] + ');', function(err, rows, fields) {
       if (err) throw err;
     
       res.send(rows[0]);
