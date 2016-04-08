@@ -7,9 +7,22 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
 
 	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
+<script>
+$.ajax({url: "/getShips", success: function(result){
+         for(var ship in result) {
+             var x = document.getElementById("shipSelect");
+             var option = document.createElement("option");
+             option.text = result[ship].name;
+             option.value = result[ship].id;
+             x.add(option);
+          }
+}});
+</script>
 <body>
 	<div id="header-cont">
 		<div id="shadowbox"></div>
@@ -24,19 +37,21 @@
 		<nav>
 			<ul>
 				<li><a>Home</a></li>
-				<li><a href="cruise_list.html">Cruise List</a></li>
-				<li><a href="tour_list.html">Tour List</a></li>
-				<li><a href="cruise_input.html">Cruise Input</a></li>
-				<li><a href="tour_input.html">Tour Input</a>
+				<li><a href="cruiselist">Cruise List</a></li>
+				<li><a href="tourlist">Tour List</a></li>
+				<li><a href="cruiseinput">Cruise Input</a></li>
+				<li><a href="tourinput">Tour Input</a>
 			</ul>
 		</nav>
 	</div>
 	<div class="col-md-9 content">
 		<h3>Add a Cruise</h3>
 		<form>
-			<label class="col-md-12">Name of Ship<input type="text" /></label>
-			<label class="col-md-12">Port Time<input type="text" /></label>
-			<label class="col-md-12">Departure Time<input type="text" /></label>
+			<label class="col-md-12">Name of Ship<select id="shipSelect">
+			<option>Select Ship</option>
+		</select></label>
+			<label class="col-md-12">Port Time<input type="time" /></label>
+			<label class="col-md-12">Departure Time<input type="time" /></label>
 			<label class="col-md-12">Dock Number<input type="number" /></label>
 			<input type="Submit" value="Submit" />
 		</form>

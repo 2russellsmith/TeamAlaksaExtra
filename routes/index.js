@@ -59,7 +59,7 @@ router.get('/getPortages', function(req, res){
     
     connection.connect();
     
-    connection.query('SELECT * FROM Portage', function(err, rows, fields) {
+    connection.query('Select CruiseShip.name, Portage.dock_time, Portage.departure_time, Portage.dock_number from CruiseShip JOIN Portage on CruiseShip.id = Portage.cruise_ship_id', function(err, rows, fields) {
       if (err) throw err;
     
       console.log('The solution is: ', rows);
